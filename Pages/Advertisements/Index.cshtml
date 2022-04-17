@@ -1,0 +1,28 @@
+﻿@page
+@model Lab4.Pages.Advertisements.IndexModel
+
+@{
+    ViewData["Title"] = "Advertisements";
+}
+
+@{string broker = @Model.broker;}
+
+<h1>Advertisements</h1>
+
+<p>
+    <a asp-page="Create" asp-route-id="@broker">Upload Ad</a>    
+</p>
+<div>
+    <a asp-controller="Brokerages">Back to List</a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Url)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+</table>

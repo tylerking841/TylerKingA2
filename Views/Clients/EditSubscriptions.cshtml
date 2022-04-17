@@ -1,0 +1,91 @@
+﻿@model Lab4.Models.ViewModels.BrokerageSubscriptionsViewModel
+
+@{
+    ViewData["Title"] = "Edit Subscriptions";
+}
+
+@{string person = ViewData["ClientId"]?.ToString();}
+@{string name = ViewData["FullName"]?.ToString();}
+@{string current = "";}
+@{string tOld = "";}
+@{var brokerList = new List<string>();}
+@{var oldbrokerList = new HashSet<string>();}
+
+<h1>Edit</h1>
+
+<div>
+    <h4>Client</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Full Name
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => name)
+            
+        </dd>
+    </dl>
+</div>
+
+@if (Model.Brokerages == null)
+{
+    <h3>Empty</h3>
+}
+else 
+{
+    
+        if (Model.Brokerages.Count() > 0)
+    {        
+        <table>
+            @foreach (var item1 in Model.Subscriptions)
+            {
+                current =@item1.BrokerageId;
+                brokerList.Add(current);
+
+            }
+            @foreach (var item in Model.Brokerages)
+            {
+                if (@brokerList.Count > 0)
+                {
+
+                    for (var i = 0; i < brokerList.Count(); i++)
+                    {
+                        if (@brokerList[i].Equals(item.Id))
+                        {
+                            <tr>
+                                <td>
+                                    @item.Title                                    
+                                </td>
+
+                                <td>
+                                    <a asp-controller="Clients" asp-action="RemoveSubscriptions" asp-route-cId="@person" asp-route-brokerId="@item.Id">Unregister</a>                                  
+                                     
+                                </td>
+                            </tr>
+                            tOld = item.Id.ToString();
+                            oldbrokerList.Add(tOld);
+                        }
+                    }
+                }
+
+                if (@oldbrokerList.Contains(item.Id)==false)
+                {
+                     <tr>
+                         <td>
+                             @item.Title                              
+                          </td>
+
+                          <td>                              
+                              <a href="/Clients/AddSubscriptions?ClientId=@person&BrokerageId=@item.Id">Register</a>
+                              <a href=""></a>
+                          </td>
+                     </tr>
+                }             
+        
+            }
+        </table>
+    }
+}
+<div>
+    <a asp-action="Index">Back to Clients</a>
+</div>

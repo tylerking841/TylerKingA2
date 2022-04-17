@@ -1,0 +1,36 @@
+﻿@page
+@model Lab4.Pages.Advertisements.CreateModel
+
+@{
+    ViewData["Title"] = "Create Advertisement";
+}
+
+<h1>Create</h1>
+
+<h4>Upload an add for brokerage..</h4>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <form asp-page="Create" enctype="multipart/form-data" method="post">
+            <div class="form-group">
+            <br/>
+                <div class="btn btn-sm float-left">                    
+                    <input name="file" type="file">                    
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button name="upload" class="btn btn-primary">Upload Now</button>
+            </div>
+    </form>
+    </div>
+
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

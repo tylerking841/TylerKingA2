@@ -1,0 +1,73 @@
+﻿@model Lab4.Models.ViewModels.BrokeragesViewModel
+
+@{
+    ViewData["Title"] = "Brokerages";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>                
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fee)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Brokerages) 
+{
+            string select = "";
+            string data = ViewData["BrokerageId"]?.ToString();
+            if (item.Id == data)
+            {
+                select = "success";
+            }
+            <tr class="@select">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fee)
+                </td>
+                <td>
+                <td>
+                    <a asp-action="Index" asp-route-id="@item.Id">Select</a> |
+                    <a asp-page="/Advertisements/Index" asp-route-id="@item.Id">Ads</a> |
+                    
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+
+            </tr>}
+    </tbody>
+</table>    
+
+@if (Model.Subscriptions != null)
+{
+    <h3>
+        Subscribers to the brokera
+    </h3>
+    <table class="table">
+        <tr>
+            <th>Name</th>
+        </tr>
+        @foreach (var item in Model.Subscriptions)
+        {
+            <tr>
+                <td>
+                    @item.Client.FullName
+                    @item.BrokerageId
+                </td>
+            </tr>
+        }
+    </table>
+} 
